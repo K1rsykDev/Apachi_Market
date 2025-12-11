@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apachi Market — графічні послуги</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="brand">Apachi Market</div>
+        <nav class="nav-links">
+          <a href="#services">Послуги</a>
+          <a href="#gallery">Портфоліо</a>
+          <a href="#order">Зробити замовлення</a>
+          <a href="admin.html">Адмін-панель</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Аватарки, банери та прев'юшки під ваш стиль</h1>
+        <p>
+          Створюємо унікальні дизайни для стрімів, соцмереж та вашого бренду. Надішліть побажання, додайте референси та отримаєте готовий результат швидко.
+        </p>
+        <div class="cta-buttons">
+          <a class="button" href="#order">Замовити дизайн</a>
+          <a class="button secondary" href="#gallery">Дивитися приклади</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Що ви отримуєте</h2>
+        <ul>
+          <li>Повністю кастомний дизайн під ваші побажання.</li>
+          <li>Зручна комунікація та швидкі оновлення статусу.</li>
+          <li>Безпечна оплата та підтвердження через чек.</li>
+          <li>Онлайн-галерея з готовими роботами.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Послуги</h2>
+      <p class="lead">Обирайте тип дизайну, який вам потрібен. Якщо не знайшли потрібне — вкажіть це у формі замовлення.</p>
+      <div class="gallery-grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=800&q=80" alt="Аватарки" />
+          <div class="card-body">
+            <h3>Аватарки</h3>
+            <p class="lead">Яскраві аватари для профілю чи каналу.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Банери" />
+          <div class="card-body">
+            <h3>Банери</h3>
+            <p class="lead">Оформлення для YouTube, Twitch, Discord та інших платформ.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1481487196290-c152efe083f5?auto=format&fit=crop&w=800&q=80" alt="Прев'юшки" />
+          <div class="card-body">
+            <h3>Прев'юшки</h3>
+            <p class="lead">Стильні прев'ю для роликів і стрімів.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2>Галерея прикладів</h2>
+      <p class="lead">Останні роботи, які додає адміністратор у панелі керування.</p>
+      <div id="examplesContainer" class="gallery-grid"></div>
+      <div id="examplesEmpty" class="gallery-empty" style="display: none;">Поки що немає прикладів. Додайте їх в адмін-панелі.</div>
+    </section>
+
+    <section id="order" class="section">
+      <h2>Зробити замовлення</h2>
+      <p class="lead">Заповніть форму та додайте референси чи чек оплати. Ми підтвердимо та почнемо роботу.</p>
+      <div class="form-card">
+        <form id="orderForm" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div>
+              <label class="label" for="nickname">Нікнейм</label>
+              <input class="input" type="text" id="nickname" name="nickname" required />
+            </div>
+            <div>
+              <label class="label" for="orderType">Тип замовлення</label>
+              <select id="orderType" name="orderType" required>
+                <option value="avatar">Аватарка</option>
+                <option value="banner">Банер</option>
+                <option value="preview">Прев'юшка</option>
+                <option value="other">Інше</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="label" for="description">Опис стилю та вимог</label>
+            <textarea id="description" name="description" required placeholder="Опишіть кольори, стиль, текст, побажання"></textarea>
+          </div>
+          <div class="form-grid">
+            <div>
+              <label class="label" for="references">Референси (зображення, можна кілька)</label>
+              <input type="file" id="references" name="references" accept="image/*" multiple />
+            </div>
+            <div>
+              <label class="label" for="paymentProof">Чек оплати (зображення/файл)</label>
+              <input type="file" id="paymentProof" name="paymentProof" />
+            </div>
+          </div>
+          <button class="button" type="submit" id="submitOrder">Надіслати замовлення</button>
+          <div id="orderMessage"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">© 2024 Apachi Market. Усі права захищено.</footer>
+
+    <script type="module" src="assets/config.js"></script>
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

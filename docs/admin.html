@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Адмін-панель — Apachi Market</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Адмін-панель</h1>
+      <p class="lead">Увійдіть, щоб керувати замовленнями та портфоліо.</p>
+
+      <div id="loginSection" class="admin-card">
+        <form id="loginForm">
+          <div class="form-grid">
+            <div>
+              <label class="label" for="username">Логін</label>
+              <input class="input" type="text" id="username" required />
+            </div>
+            <div>
+              <label class="label" for="password">Пароль</label>
+              <input class="input" type="password" id="password" required />
+            </div>
+          </div>
+          <button class="button" type="submit">Увійти</button>
+          <div id="loginMessage"></div>
+        </form>
+      </div>
+
+      <div id="adminSection" style="display: none;">
+        <div class="tab-buttons">
+          <button id="ordersTab" class="button secondary active" type="button">Заявки</button>
+          <button id="examplesTab" class="button secondary" type="button">Приклади робіт</button>
+          <button id="logout" class="button secondary" type="button">Вийти</button>
+        </div>
+
+        <div id="ordersPanel" class="admin-card">
+          <h2>Заявки</h2>
+          <div id="ordersTable"></div>
+          <div id="orderDetail" class="order-detail" style="display: none;"></div>
+        </div>
+
+        <div id="examplesPanel" class="admin-card" style="display: none;">
+          <h2>Приклади робіт</h2>
+          <form id="exampleForm" enctype="multipart/form-data">
+            <div class="form-grid">
+              <div>
+                <label class="label" for="exampleTitle">Назва / тип роботи</label>
+                <input class="input" type="text" id="exampleTitle" name="title" required />
+              </div>
+              <div>
+                <label class="label" for="exampleImage">Зображення роботи</label>
+                <input type="file" id="exampleImage" name="image" accept="image/*" required />
+              </div>
+            </div>
+            <button class="button" type="submit">Завантажити</button>
+            <div id="exampleMessage"></div>
+          </form>
+          <div class="gallery-grid" id="adminExamples"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="assets/config.js"></script>
+    <script type="module" src="assets/admin.js"></script>
+  </body>
+</html>

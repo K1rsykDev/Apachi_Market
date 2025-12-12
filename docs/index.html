@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apachi Design Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="topbar">
+        <div class="logo">Apachi Design</div>
+        <div class="nav-links">
+          <a href="#services">Послуги</a>
+          <a href="#gallery">Галерея</a>
+          <a href="#order">Замовити</a>
+          <a href="admin.html" class="admin-link">Адмін</a>
+        </div>
+      </nav>
+      <div class="hero-content">
+        <h1>Графічні послуги під будь-який проєкт</h1>
+        <p>Аватарки, банери, прев'юшки та інші дизайни з швидким виконанням та прозорою комунікацією.</p>
+        <a class="btn primary" href="#order">Залишити заявку</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="services" class="card">
+      <h2>Що ми пропонуємо</h2>
+      <div class="grid services">
+        <div class="service">
+          <h3>Аватарки</h3>
+          <p>Персональні аватарки для соцмереж, ігор та стрімінгових платформ.</p>
+        </div>
+        <div class="service">
+          <h3>Банери</h3>
+          <p>Яскраві банери для Twitch, YouTube, Discord та рекламних кампаній.</p>
+        </div>
+        <div class="service">
+          <h3>Прев'юшки</h3>
+          <p>Стильні прев'юшки для роликів та стрімів, що привертають увагу.</p>
+        </div>
+        <div class="service">
+          <h3>Індивідуальні дизайни</h3>
+          <p>UI-елементи, лого, візуальні пакети та інші креативні рішення.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="card">
+      <div class="section-head">
+        <h2>Галерея робіт</h2>
+        <span class="muted">Приклади завантажуються з бекенду</span>
+      </div>
+      <div id="examples-grid" class="grid gallery"></div>
+      <div id="examples-empty" class="muted">Наразі прикладів немає. Додайте їх в адмін-панелі.</div>
+    </section>
+
+    <section id="order" class="card">
+      <h2>Залишити заявку</h2>
+      <form id="order-form" class="form">
+        <div class="form-group">
+          <label for="nickname">Нікнейм *</label>
+          <input id="nickname" name="nickname" type="text" required placeholder="Ваш нікнейм">
+        </div>
+        <div class="form-group">
+          <label for="type">Тип замовлення *</label>
+          <select id="type" name="type" required>
+            <option value="">Оберіть тип</option>
+            <option value="avatar">Аватарка</option>
+            <option value="banner">Банер</option>
+            <option value="preview">Прев'юшка</option>
+            <option value="other">Інше</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Опис стилю та вимог *</label>
+          <textarea id="description" name="description" rows="4" required placeholder="Опишіть бажаний стиль, кольори, текст та інші деталі"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Референси (зображення, до 5 файлів)</label>
+          <input id="references" name="references" type="file" accept="image/*" multiple>
+        </div>
+        <div class="form-group">
+          <label>Чек оплати</label>
+          <input id="receipt" name="receipt" type="file" accept="image/*,.pdf">
+        </div>
+        <button class="btn primary" type="submit">Надіслати замовлення</button>
+        <p id="order-status" class="muted"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 Apachi Design. Якість, швидкість, прозорість.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

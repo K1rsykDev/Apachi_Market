@@ -1,51 +1,108 @@
-const API_BASE = localStorage.getItem('apiBase') || 'http://localhost:3001';
+const STORAGE_KEYS = {
+  examples: 'apachi_examples',
+  orders: 'apachi_orders'
+};
 
-async function fetchExamples() {
+const seedExamples = [];
+
+function readStorage(key, fallback = []) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function writeStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function ensureSeeds() {
+  const existing = readStorage(STORAGE_KEYS.examples, null);
+  if (existing === null) {
+    writeStorage(STORAGE_KEYS.examples, seedExamples);
+  }
+  if (readStorage(STORAGE_KEYS.orders, null) === null) {
+    writeStorage(STORAGE_KEYS.orders, []);
+  }
+}
+
+function renderExamples() {
   const grid = document.getElementById('examples-grid');
   const empty = document.getElementById('examples-empty');
+  const examples = readStorage(STORAGE_KEYS.examples, []);
   grid.innerHTML = '';
-  try {
-    const res = await fetch(`${API_BASE}/api/examples`);
-    const data = await res.json();
-    if (Array.isArray(data) && data.length) {
-      empty.style.display = 'none';
-      data.forEach((item) => {
-        const card = document.createElement('div');
-        card.className = 'example-card';
-        card.innerHTML = `
-          <img src="${API_BASE}${item.imageUrl}" alt="${item.title}">
-          <div class="info">${item.title}</div>
-        `;
-        grid.appendChild(card);
-      });
-    } else {
-      empty.style.display = 'block';
-    }
-  } catch (err) {
+  if (examples.length === 0) {
     empty.style.display = 'block';
-    empty.textContent = 'Не вдалося завантажити приклади. Перевірте підключення до бекенду.';
+    return;
   }
+  empty.style.display = 'none';
+  examples.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'example-card';
+    card.innerHTML = `
+      <img src="${item.imageData}" alt="${item.title}">
+      <div class="info">${item.title}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function fileListToDataUrls(fileList, limit = 5) {
+  const files = Array.from(fileList || []).slice(0, limit);
+  const readers = files.map(
+    (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+      })
+  );
+  return Promise.all(readers);
 }
 
 async function submitOrder(event) {
   event.preventDefault();
   const status = document.getElementById('order-status');
   status.textContent = 'Надсилаємо заявку...';
-  const form = event.target;
-  const formData = new FormData(form);
 
   try {
-    const res = await fetch(`${API_BASE}/api/orders`, {
-      method: 'POST',
-      body: formData,
-    });
-    if (!res.ok) throw new Error('Помилка при надсиланні');
-    form.reset();
-    status.textContent = 'Заявка успішно надіслана! Ми звʼяжемось з вами найближчим часом.';
+    const nickname = document.getElementById('nickname').value.trim();
+    const type = document.getElementById('type').value;
+    const description = document.getElementById('description').value.trim();
+    const referencesInput = document.getElementById('references');
+    const receiptInput = document.getElementById('receipt');
+
+    const [references, receiptArr] = await Promise.all([
+      fileListToDataUrls(referencesInput.files),
+      fileListToDataUrls(receiptInput.files, 1)
+    ]);
+
+    const orders = readStorage(STORAGE_KEYS.orders, []);
+    const newOrder = {
+      id: Date.now(),
+      nickname,
+      type,
+      description,
+      references,
+      receipt: receiptArr[0] || '',
+      paymentStatus: 'pending',
+      status: 'new',
+      createdAt: new Date().toISOString()
+    };
+
+    orders.push(newOrder);
+    writeStorage(STORAGE_KEYS.orders, orders);
+    event.target.reset();
+    status.textContent = 'Заявка успішно збережена локально! Відкрийте адмінку для перегляду.';
   } catch (err) {
-    status.textContent = 'Сталася помилка. Перевірте підключення та спробуйте ще раз.';
+    console.error(err);
+    status.textContent = 'Сталася помилка. Спробуйте ще раз або перевірте файли.';
   }
 }
 
+ensureSeeds();
+renderExamples();
 document.getElementById('order-form').addEventListener('submit', submitOrder);
-fetchExamples();

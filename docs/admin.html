@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адмін-панель Apachi Design</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="topbar">
+        <div class="logo">Адмін Apachi Design</div>
+        <div class="nav-links">
+          <a href="index.html">На головну</a>
+        </div>
+      </nav>
+      <div class="hero-content">
+        <h1>Керування заявками та прикладами</h1>
+        <p>Увійдіть, щоб переглядати заявки клієнтів і оновлювати статуси.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" id="login-card">
+      <h2>Вхід</h2>
+      <form id="login-form" class="form">
+        <div class="form-group">
+          <label for="password">Пароль адміністратора (статичний)</label>
+          <input id="password" type="password" required>
+        </div>
+        <button class="btn primary" type="submit">Увійти</button>
+        <p id="login-status" class="muted"></p>
+      </form>
+    </section>
+
+    <section class="card" id="panel" style="display:none;">
+      <div class="section-head">
+        <h2>Панель керування</h2>
+        <div class="nav-links">
+          <button class="btn" id="tab-orders">Заявки</button>
+          <button class="btn" id="tab-examples">Галерея</button>
+          <button class="btn" id="logout">Вийти</button>
+        </div>
+      </div>
+
+      <div id="orders-section">
+        <h3>Заявки</h3>
+        <div id="orders-list" class="grid"></div>
+        <div id="order-details" class="card" style="display:none; margin-top:16px;"></div>
+      </div>
+
+      <div id="examples-section" style="display:none;">
+        <h3>Приклади робіт</h3>
+        <form id="example-form" class="form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="example-title">Назва / тип роботи</label>
+            <input id="example-title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="example-image">Зображення</label>
+            <input id="example-image" name="image" type="file" accept="image/*" required>
+          </div>
+          <button class="btn primary" type="submit">Додати приклад</button>
+          <p id="example-status" class="muted"></p>
+        </form>
+        <div id="examples-admin-grid" class="grid gallery" style="margin-top:16px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 Apachi Design.</p>
+    </div>
+  </footer>
+  <script src="admin.js"></script>
+</body>
+</html>
